@@ -2,7 +2,7 @@ extends KinematicBody
 #Movement controller thanks to
 #http://www.willdonnelly.net/blog/2021-05-16-godot-airstrafe-controller/
 
-export var jumpImpulse = 2.0
+export var jumpImpulse = 2.5
 export var gravity = -5.0
 export var groundAcceleration = 30.0
 export var groundSpeedLimit = 3.0
