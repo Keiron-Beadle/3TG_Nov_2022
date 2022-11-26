@@ -71,6 +71,8 @@ func _physics_process(delta):
 		self.global_transform = restartTransform
 		self.velocity = restartVelocity
 	
+	var point_light = get_node("/root/Spatial/Lights/PlayerLight")
+	point_light.transform.origin = transform.origin
 	pass
 
 func _input(event):

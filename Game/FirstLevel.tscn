@@ -1,11 +1,8 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Player_Controller.gd" type="Script" id=1]
 [ext_resource path="res://GlobalListener.gd" type="Script" id=2]
 [ext_resource path="res://Resources/Models/plane.obj" type="ArrayMesh" id=3]
-[ext_resource path="res://Resources/Textures/TerrainMap.png" type="Texture" id=4]
-[ext_resource path="res://Resources/Textures/Snow_Albedo.jpg" type="Texture" id=5]
-[ext_resource path="res://Resources/Textures/Snow_Normal.jpg" type="Texture" id=7]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -15,40 +12,27 @@ extents = Vector3( 0.4, 0.1, 0.4 )
 
 [sub_resource type="BoxShape" id=13]
 
+[sub_resource type="SpatialMaterial" id=19]
+albedo_color = Color( 0.929412, 0.866667, 0.831373, 1 )
+
 [sub_resource type="SpatialMaterial" id=14]
 flags_transparent = true
 albedo_color = Color( 0.270588, 0.403922, 0.584314, 0.211765 )
 
-[sub_resource type="Shader" id=8]
-code = "shader_type spatial;
-
-uniform sampler2D _heightMap;
-uniform float _heightRatio;
-
-void fragment(){
-	
-}
-
-void vertex(){
-	VERTEX.y += texture(_heightMap, UV).r * _heightRatio;
-}"
-
-[sub_resource type="ShaderMaterial" id=9]
-shader = SubResource( 8 )
-shader_param/_heightRatio = 37.722
-shader_param/_heightMap = ExtResource( 4 )
-
-[sub_resource type="SpatialMaterial" id=10]
-next_pass = SubResource( 9 )
-albedo_color = Color( 0.839216, 0.992157, 1, 1 )
-albedo_texture = ExtResource( 5 )
-normal_enabled = true
-normal_scale = 0.26
-normal_texture = ExtResource( 7 )
+[sub_resource type="SpatialMaterial" id=16]
+albedo_color = Color( 0.156863, 0.239216, 0.231373, 1 )
 
 [sub_resource type="BoxShape" id=11]
 
+[sub_resource type="SpatialMaterial" id=18]
+albedo_color = Color( 0.768627, 0.270588, 0.211765, 1 )
+
 [sub_resource type="BoxShape" id=12]
+
+[sub_resource type="SpatialMaterial" id=17]
+albedo_color = Color( 0.0980392, 0.447059, 0.470588, 1 )
+metallic = 0.19
+roughness = 0.57
 
 [sub_resource type="SpatialMaterial" id=15]
 albedo_color = Color( 0.819608, 0.180392, 0.180392, 1 )
@@ -57,7 +41,7 @@ albedo_color = Color( 0.819608, 0.180392, 0.180392, 1 )
 script = ExtResource( 2 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -71.7639, 16.8741, -13.7243 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -71.7463, 16.8741, -13.7261 )
 script = ExtResource( 1 )
 
 [node name="Main_Collider" type="CollisionShape" parent="Player"]
@@ -87,6 +71,7 @@ shape = SubResource( 13 )
 
 [node name="CSGBox" type="CSGBox" parent="World/Walls/Wall"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 19 )
 
 [node name="Wall5" type="StaticBody" parent="World/Walls"]
 transform = Transform( 60, 0, 0, 0, 16.926, 0, 0, 0, 1, -121.273, 8.44891, 5.93964 )
@@ -105,6 +90,8 @@ transform = Transform( 60, 0, 0, 0, 24.9868, 0.0324923, 0, -0.812308, 0.999472, 
 shape = SubResource( 13 )
 
 [node name="CSGBox" type="CSGBox" parent="World/Walls/Wall2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, -5.96046e-08, 1, 0, 0, 0 )
+material_override = SubResource( 19 )
 
 [node name="Wall3" type="StaticBody" parent="World/Walls"]
 transform = Transform( -2.62268e-06, -0.812308, 0.999472, 0, 24.9868, 0.0324923, -60, 3.55071e-08, -4.36883e-08, -44.0486, 0, -1.00675 )
@@ -113,6 +100,8 @@ transform = Transform( -2.62268e-06, -0.812308, 0.999472, 0, 24.9868, 0.0324923,
 shape = SubResource( 13 )
 
 [node name="CSGBox" type="CSGBox" parent="World/Walls/Wall3"]
+transform = Transform( 1, 5.55112e-17, 0, 2.22045e-16, 1, -2.48199e-18, -2.27374e-13, -5.96046e-08, 1, 0, 0, 0 )
+material_override = SubResource( 19 )
 
 [node name="Wall4" type="StaticBody" parent="World/Walls"]
 transform = Transform( -2.62268e-06, -0.812308, 0.999472, 0, 24.9868, 0.0324923, -60, 3.55071e-08, -4.36883e-08, -157.746, 7.62939e-06, -4.4289 )
@@ -121,20 +110,22 @@ transform = Transform( -2.62268e-06, -0.812308, 0.999472, 0, 24.9868, 0.0324923,
 shape = SubResource( 13 )
 
 [node name="CSGBox" type="CSGBox" parent="World/Walls/Wall4"]
+transform = Transform( 1, 5.55112e-17, 0, 2.22045e-16, 1, -2.48199e-18, -2.27374e-13, -5.96046e-08, 1, 0, 0, 0 )
+material_override = SubResource( 19 )
 
 [node name="Terrain" type="Spatial" parent="World"]
 
 [node name="GroundTerrain" type="StaticBody" parent="World/Terrain"]
+transform = Transform( 13, 0, 0, 0, 1, 0, 0, 0, 10, -103.366, 1.30822, -0.127014 )
 
 [node name="MeshInstance" type="MeshInstance" parent="World/Terrain/GroundTerrain"]
-transform = Transform( 11.536, 0, 0, 0, 1, 0, 0, 0, 10, -100.055, -0.0917206, -0.947454 )
-material_override = SubResource( 10 )
+material_override = SubResource( 16 )
 mesh = ExtResource( 3 )
 skeleton = NodePath("../..")
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="World/Terrain/GroundTerrain"]
-transform = Transform( 75, 0, 0, 0, 5.683, 0, 0, 0, 50, -101.896, 8.38145, -0.82996 )
+transform = Transform( 6, 0, 0, 0, 1, 0, 0, 0, 5, -0.0496144, 0.64856, 0.0563782 )
 shape = SubResource( 11 )
 
 [node name="Platforms" type="Spatial" parent="World"]
@@ -144,6 +135,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -146.962, 30.0233, -22.3048 )
 
 [node name="PlatformMesh" type="CSGBox" parent="World/Platforms/Platform"]
 transform = Transform( 10.118, 0, 0, 0, 0.578, 0, 0, 0, 20.512, 0, 0, 0 )
+material_override = SubResource( 18 )
 
 [node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/Platform"]
 transform = Transform( 10.118, 0, 0, 0, 0.578, 0, 0, 0, 20.512, 0, 0, 0 )
@@ -153,6 +145,8 @@ shape = SubResource( 12 )
 transform = Transform( 3.182, 0, 0, 0, 1.168, 0, 0, 0, 6.983, -122.322, 30.0233, -22.3048 )
 
 [node name="PlatformMesh" type="CSGBox" parent="World/Platforms/Platform2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 17 )
 
 [node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/Platform2"]
 shape = SubResource( 12 )
@@ -161,6 +155,8 @@ shape = SubResource( 12 )
 transform = Transform( 3.182, 0, 0, 0, 1.168, 0, 0, 0, 6.983, -104.357, 30.0233, -19.1761 )
 
 [node name="PlatformMesh" type="CSGBox" parent="World/Platforms/Platform3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 17 )
 
 [node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/Platform3"]
 shape = SubResource( 12 )
@@ -169,6 +165,8 @@ shape = SubResource( 12 )
 transform = Transform( 3.182, 0, 0, 0, 1.168, 0, 0, 0, 6.983, -85.6882, 30.0233, -35.9942 )
 
 [node name="PlatformMesh" type="CSGBox" parent="World/Platforms/Platform4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 17 )
 
 [node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/Platform4"]
 shape = SubResource( 12 )
@@ -177,6 +175,8 @@ shape = SubResource( 12 )
 transform = Transform( 3.182, 0, 0, 0, 1.168, 0, 0, 0, 6.983, -68.1077, 30.0233, -35.9942 )
 
 [node name="PlatformMesh" type="CSGBox" parent="World/Platforms/Platform5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 17 )
 
 [node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/Platform5"]
 shape = SubResource( 12 )
@@ -185,6 +185,8 @@ shape = SubResource( 12 )
 transform = Transform( 3.182, 0, 0, 0, 1.168, 0, 0, 0, 6.983, -51.7371, 30.0233, -22.6635 )
 
 [node name="PlatformMesh" type="CSGBox" parent="World/Platforms/Platform6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 17 )
 
 [node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/Platform6"]
 shape = SubResource( 12 )
@@ -193,6 +195,8 @@ shape = SubResource( 12 )
 transform = Transform( 3.182, 0, 0, 0, 1.168, 0, 0, 0, 6.983, -51.7371, 30.0233, 1.11337 )
 
 [node name="PlatformMesh" type="CSGBox" parent="World/Platforms/Platform7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 17 )
 
 [node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/Platform7"]
 shape = SubResource( 12 )
@@ -201,6 +205,8 @@ shape = SubResource( 12 )
 transform = Transform( 2.07135, 0, -5.30088, 0, 1.168, 0, 2.4155, 0, 4.54565, -56.9184, 17.9269, 9.73631 )
 
 [node name="PlatformMesh" type="CSGBox" parent="World/Platforms/Platform8"]
+transform = Transform( 0.999999, 0, -2.38419e-07, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 17 )
 
 [node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/Platform8"]
 shape = SubResource( 12 )
@@ -209,6 +215,8 @@ shape = SubResource( 12 )
 transform = Transform( 2.32019, 0, 4.77877, 0, 1.168, 0, -2.17758, 0, 5.09172, -77.9052, 17.9269, 16.2165 )
 
 [node name="PlatformMesh" type="CSGBox" parent="World/Platforms/Platform9"]
+transform = Transform( 1, 0, -2.38419e-07, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 17 )
 
 [node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/Platform9"]
 shape = SubResource( 12 )
@@ -217,6 +225,8 @@ shape = SubResource( 12 )
 transform = Transform( -2.75149, 0, 3.50743, 0, 1.168, 0, -1.59826, 0, -6.03823, -74.5515, 17.9269, 37.8584 )
 
 [node name="PlatformMesh" type="CSGBox" parent="World/Platforms/Platform10"]
+transform = Transform( 1, 0, -1.19209e-07, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 17 )
 
 [node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/Platform10"]
 shape = SubResource( 12 )
@@ -225,6 +235,8 @@ shape = SubResource( 12 )
 transform = Transform( -1.9533, 0, -5.51249, 0, 1.168, 0, 2.51192, 0, -4.28657, -107.25, 14.8553, 35.7619 )
 
 [node name="PlatformMesh" type="CSGBox" parent="World/Platforms/Platform11"]
+transform = Transform( 1, 0, 0, 0, 0.999999, 0, 7.45058e-08, 0, 1, 0, 0, 0 )
+material_override = SubResource( 17 )
 
 [node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/Platform11"]
 shape = SubResource( 12 )
@@ -234,6 +246,7 @@ transform = Transform( 1.78942, 0, -5.7742, 0, 1.168, 0, 2.63118, 0, 3.92694, -1
 
 [node name="PlatformMesh" type="CSGBox" parent="World/Platforms/Platform12"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0 )
+material_override = SubResource( 17 )
 
 [node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/Platform12"]
 shape = SubResource( 12 )
@@ -250,8 +263,9 @@ shape = SubResource( 12 )
 
 [node name="Lights" type="Spatial" parent="."]
 
-[node name="DirectionalLight" type="DirectionalLight" parent="Lights"]
-transform = Transform( 0, 0, 0, 12, 1, 0, 0, 0, 1, 0, 0, 0 )
-light_color = Color( 0.560784, 0, 0.407843, 1 )
-light_energy = 1.25
-light_specular = 0.154
+[node name="PlayerLight" type="OmniLight" parent="Lights"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -52.7969, 19.9736, -9.60287 )
+light_color = Color( 0.972549, 0.741176, 0.239216, 1 )
+light_energy = 5.697
+light_specular = 0.0
+omni_range = 7.1179
