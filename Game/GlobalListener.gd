@@ -1,6 +1,11 @@
 extends Spatial
 
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 func _unhandled_input(event):
+	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if event is InputEventKey:
 		if event.pressed and event.scancode == KEY_ESCAPE:
-			get_tree().quit()
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
