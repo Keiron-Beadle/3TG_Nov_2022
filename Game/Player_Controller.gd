@@ -39,7 +39,7 @@ func _physics_process(delta):
 	var strafeDir = Vector3(0, 0, 0)
 	if Input.is_action_pressed("forward"):
 		strafeDir -= basis.z
-	if Input.is_action_pressed("backwards"):
+	if Input.is_action_pressed("backward"):
 		strafeDir += basis.z
 	if Input.is_action_pressed("strafe_left"):
 		strafeDir -= basis.x
@@ -62,10 +62,10 @@ func _physics_process(delta):
 	velocity += strafeDir * accel
 	velocity = move_and_slide(velocity, Vector3.UP)
 	
-	if Input.is_action_pressed("move_fast"):
-		velocity = Vector3.ZERO
-	if Input.is_action_just_released("move_fast"):
-		velocity = -30 * basis.z
+#	if Input.is_action_pressed("move_fast"):
+#		velocity = Vector3.ZERO
+#	if Input.is_action_just_released("move_fast"):
+#		velocity = -30 * basis.z
 	
 	if Input.is_action_just_pressed("restart"):
 		self.global_transform = restartTransform
