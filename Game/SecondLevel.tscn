@@ -28,3 +28,11 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60607, 0 )
 
 [node name="Player_Camera" type="Camera" parent="Player/Pivot"]
+
+[node name="Lights" type="Spatial" parent="."]
+
+[node name="PlayerLight" type="OmniLight" parent="Lights"]
+light_color = Color( 0.972549, 0.741176, 0.239216, 1 )
+light_energy = 5.697
+light_specular = 0.0
+omni_range = 4.84307
