@@ -81,8 +81,9 @@ func _physics_process(delta):
 		var collider_layer = collision.collider.get_collision_layer()
 		if collider_layer == 2:
 			self.global_transform = restartTransform
-			self.velocity = restartVelocity
-
+			#self.velocity = restartVelocity
+		elif collider_layer == 4:
+			get_tree().change_scene("res://SecondLevel.tscn")
 		
 	
 	pass

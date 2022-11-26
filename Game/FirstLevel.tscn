@@ -252,14 +252,15 @@ material_override = SubResource( 17 )
 [node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/Platform12"]
 shape = SubResource( 12 )
 
-[node name="Platform13" type="StaticBody" parent="World/Platforms"]
+[node name="GoalPlatform" type="StaticBody" parent="World/Platforms"]
 transform = Transform( -2.41889, 0, -4.53695, 0, 1.168, 0, 2.06739, 0, -5.30833, -140.105, 14.8553, 37.5542 )
+collision_layer = 4
 
-[node name="PlatformMesh" type="CSGBox" parent="World/Platforms/Platform13"]
+[node name="PlatformMesh" type="CSGBox" parent="World/Platforms/GoalPlatform"]
 transform = Transform( 1, 0, 0, 0, 1, 0, -1.49012e-08, 0, 1, 0.0640221, -6.67572e-06, -0.0349188 )
 material = SubResource( 15 )
 
-[node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/Platform13"]
+[node name="PlatformCollider" type="CollisionShape" parent="World/Platforms/GoalPlatform"]
 shape = SubResource( 12 )
 
 [node name="Lights" type="Spatial" parent="."]
