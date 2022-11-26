@@ -5,8 +5,7 @@
 [ext_resource path="res://Resources/Textures/GridTexture.png" type="Texture" id=3]
 
 [sub_resource type="PhysicsMaterial" id=1]
-friction = 0.39
-bounce = 0.21
+friction = 0.0
 
 [sub_resource type="SpatialMaterial" id=2]
 params_diffuse_mode = 2
@@ -61,6 +60,42 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60607, 0 )
 [node name="Player_Camera" type="Camera" parent="Player/Pivot"]
 
 [node name="UI" type="Node" parent="."]
+
+[node name="SpeedDec_Label" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -58.0
+margin_top = 99.0
+margin_right = 69.0
+margin_bottom = 113.0
+text = "Velocity: "
+align = 1
+valign = 1
+uppercase = true
+
+[node name="SpeedInc_Label" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -57.0
+margin_top = 77.0
+margin_right = 70.0
+margin_bottom = 91.0
+text = "Velocity: "
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Speed_Label" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -58.0
+margin_top = 50.0
+margin_right = 69.0
+margin_bottom = 64.0
+text = "Velocity: "
+align = 1
+valign = 1
+uppercase = true
 
 [node name="Velocity_Label" type="Label" parent="UI"]
 anchor_left = 0.5
