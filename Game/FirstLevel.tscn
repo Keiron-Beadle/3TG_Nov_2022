@@ -100,6 +100,14 @@ height = 124.109
 sides = 20
 material = SubResource( 4 )
 
+[node name="CSGBox11" type="CSGBox" parent="World/OuterTree"]
+transform = Transform( -2.37353e-08, -1.301, -4.87382e-08, 0, -5.68685e-08, 1.115, -0.543, 5.68685e-08, 2.13041e-15, -0.629685, -49.9507, 28.4376 )
+operation = 2
+use_collision = true
+width = 6.16716
+height = 6.19326
+depth = 9.04224
+
 [node name="Course" type="Spatial" parent="World"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0368919, 0, 0.145966 )
 
@@ -141,6 +149,12 @@ depth = 9.04224
 
 [node name="CSGBox8" type="CSGBox" parent="World/Course"]
 transform = Transform( -0.829694, 0.734327, -0.753228, -0.46894, -1.46931, -0.00511427, -0.302823, 0.263364, 2.07166, -24.0878, -6.90103, -8.58568 )
+use_collision = true
+height = 6.19326
+depth = 9.04224
+
+[node name="CSGBox10" type="CSGBox" parent="World/Course"]
+transform = Transform( -2.37353e-08, -1.301, 0, 0.543, -5.68685e-08, 0, 0, 0, 1.115, -0.611373, -36.0243, -0.666555 )
 use_collision = true
 height = 6.19326
 depth = 9.04224
