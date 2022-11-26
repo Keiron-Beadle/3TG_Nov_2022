@@ -1,71 +1,83 @@
 extends KinematicBody
+#Movement controller thanks to
+#http://www.willdonnelly.net/blog/2021-05-16-godot-airstrafe-controller/
 
-onready var camera = $Pivot/Player_Camera
+export var jumpImpulse = 2.0
+export var gravity = -5.0
+export var groundAcceleration = 30.0
+export var groundSpeedLimit = 3.0
+export var airAcceleration = 500.0
+export var airSpeedLimit = 0.5
+export var groundFriction = 0.9
 
-const gravity = -14
-var mouse_sens = 0.001
+export var mouseSensitivity = 0.1
 
-var velocity = Vector3()
-var jump_add = 0.34
-var speed = 3
-var max_add = 1
-var max_dec = 10
-var max_speed = 100
+var velocity = Vector3.ZERO
+
+var restartTransform
+var restartVelocity
 
 func _ready():
+	restartTransform = self.global_transform
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-func get_input():
-	var wish_dir = Vector3()
-	if Input.is_action_pressed("forward"):
-		wish_dir += -global_transform.basis.z
-	if Input.is_action_pressed("backward"):
-		wish_dir += global_transform.basis.z
-	if Input.is_action_pressed("strafe_left"):
-		wish_dir += -global_transform.basis.x
-	if Input.is_action_pressed("strafe_right"):
-		wish_dir += global_transform.basis.x
-	if Input.is_action_pressed("jump"):
-		var wishLenSqrd = wish_dir.length_squared()
-		if wishLenSqrd < 0.1 and wishLenSqrd > -0.1:
-			wish_dir.x = velocity.x
-			wish_dir.z = velocity.z
-		if is_on_floor():
-			velocity.y = 20
-
-	return (wish_dir.normalized())
-
-func _unhandled_input(event):
-	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		#Rotate Bodies Y
-		rotate_y(-event.relative.x * mouse_sens) 
-		#Rotate Pivot X (Don't want model to rotate Y)
-		$Pivot.rotate_x(-event.relative.y * mouse_sens)
-		#Clamp X rotation between these values so we can't invert the view. 
-		$Pivot.rotation.x = clamp($Pivot.rotation.x, -1.2, 1.2)
-		var viewport = get_viewport()
-		#viewport.warp_mouse(viewport.get_rect().size)
+	restartVelocity = self.velocity
+	pass # Replace with function body.
 
 func _physics_process(delta):
+	# Apply gravity, jumping, and ground friction to velocity
 	velocity.y += gravity * delta
-	var wish_dir = get_input()
-	var wish_dirV2 = Vector2(wish_dir.x, wish_dir.z)
-	var vel_dirV2 = (Vector2(velocity.x, velocity.z).normalized())
-	var angleBetweenVelAndWish = abs(wish_dirV2.angle_to(vel_dirV2))
+	if is_on_floor():
+		# By using is_action_pressed() rather than is_action_just_pressed()
+		# we get automatic bunny hopping.
+		if Input.is_action_pressed("jump"):
+			velocity.y = jumpImpulse
+		else:
+			velocity *= groundFriction
 	
-	var speedIncrease = smoothstep(0.01, 0.698, angleBetweenVelAndWish)
-	var speedDecrease = -smoothstep(0.699, 0.872, angleBetweenVelAndWish)
+	# Compute X/Z axis strafe vector from WASD inputs
+	var basis = $Pivot/Player_Camera.get_global_transform().basis
+	var strafeDir = Vector3(0, 0, 0)
+	if Input.is_action_pressed("forward"):
+		strafeDir -= basis.z
+	if Input.is_action_pressed("backwards"):
+		strafeDir += basis.z
+	if Input.is_action_pressed("strafe_left"):
+		strafeDir -= basis.x
+	if Input.is_action_pressed("strafe_right"):
+		strafeDir += basis.x
+	strafeDir.y = 0
+	strafeDir = strafeDir.normalized()
 	
-	speed += clamp(speedIncrease * max_add + speedDecrease * max_dec,-max_dec,max_add)
-	speed = clamp(speed,3, max_speed)
-	var wish_vel = wish_dir * speed
-	if wish_vel.x == 0 and wish_vel.z == 0:
-		pass
-	velocity.x = wish_vel.x
-	velocity.z = wish_vel.z
-	var velText = Vector2(velocity.x, velocity.z).length()
-	get_node("/root/Spatial/UI/Velocity_Label").text = "Velocity: " + str(velText)
-	get_node("/root/Spatial/UI/Speed_Label").text = "Speed: " + str(speed)
-	get_node("/root/Spatial/UI/SpeedInc_Label").text = "Inc: " + str(speedIncrease)
-	get_node("/root/Spatial/UI/SpeedDec_Label").text = "Dec: " + str(speedDecrease)
-	velocity = move_and_slide(velocity, Vector3.UP, true)
+	# Figure out which strafe force and speed limit applies
+	var strafeAccel = groundAcceleration if is_on_floor() else airAcceleration
+	var speedLimit = groundSpeedLimit if is_on_floor() else airSpeedLimit
+	
+	# Project current velocity onto the strafe direction, and compute a capped
+	# acceleration such that *projected* speed will remain within the limit.
+	var currentSpeed = strafeDir.dot(velocity)
+	var accel = strafeAccel * delta
+	accel = max(0, min(accel, speedLimit - currentSpeed))
+	
+	# Apply strafe acceleration to velocity and then integrate motion
+	velocity += strafeDir * accel
+	velocity = move_and_slide(velocity, Vector3.UP)
+	
+	if Input.is_action_pressed("move_fast"):
+		velocity = Vector3.ZERO
+	if Input.is_action_just_released("move_fast"):
+		velocity = -30 * basis.z
+	
+	if Input.is_action_just_pressed("restart"):
+		self.global_transform = restartTransform
+		self.velocity = restartVelocity
+	
+	pass
+
+func _input(event):
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		$Pivot.rotate_x(deg2rad(event.relative.y * mouseSensitivity * -1))
+		self.rotate_y(deg2rad(event.relative.x * mouseSensitivity * -1))
+
+		# Clamp yaw to [-89, 89] degrees so you can't flip over
+		var yaw = $Pivot.rotation_degrees.x
+		$Pivot.rotation_degrees.x = clamp(yaw, -89, 89)    
