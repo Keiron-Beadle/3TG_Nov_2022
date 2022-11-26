@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player_Controller.gd" type="Script" id=1]
 [ext_resource path="res://GlobalListener.gd" type="Script" id=2]
+[ext_resource path="res://Resources/Textures/GridTexture.png" type="Texture" id=3]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.39
@@ -11,6 +12,10 @@ bounce = 0.21
 params_diffuse_mode = 2
 params_specular_mode = 2
 albedo_color = Color( 0.94902, 0.607843, 0.305882, 1 )
+albedo_texture = ExtResource( 3 )
+uv1_scale = Vector3( 100, 100, 100 )
+
+[sub_resource type="GDScript" id=6]
 
 [sub_resource type="BoxShape" id=3]
 
@@ -24,11 +29,12 @@ extents = Vector3( 0.4, 0.1, 0.4 )
 script = ExtResource( 2 )
 
 [node name="Static_Ground" type="StaticBody" parent="."]
-transform = Transform( 10, 0, 0, 0, 0.1, 0, 0, 0, 10, 0, 0, 0 )
+transform = Transform( 100, 0, 0, 0, 0.1, 0, 0, 0, 100, 0, 0, 0 )
 physics_material_override = SubResource( 1 )
 
 [node name="GroundPrimitive" type="CSGBox" parent="Static_Ground"]
 material_override = SubResource( 2 )
+script = SubResource( 6 )
 
 [node name="GroundCollider" type="CollisionShape" parent="Static_Ground"]
 shape = SubResource( 3 )
@@ -46,9 +52,24 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.07
 shape = SubResource( 4 )
 
 [node name="Feet_Collider" type="CollisionShape" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.296934, 0 )
 shape = SubResource( 5 )
 
 [node name="Pivot" type="Spatial" parent="Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60607, 0 )
 
 [node name="Player_Camera" type="Camera" parent="Player/Pivot"]
+
+[node name="UI" type="Node" parent="."]
+
+[node name="Velocity_Label" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -61.0
+margin_top = 20.0
+margin_right = 66.0
+margin_bottom = 34.0
+text = "Velocity: "
+align = 1
+valign = 1
+uppercase = true
