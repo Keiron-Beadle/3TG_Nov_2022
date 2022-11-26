@@ -2,7 +2,7 @@ extends KinematicBody
 #Movement controller thanks to
 #http://www.willdonnelly.net/blog/2021-05-16-godot-airstrafe-controller/
 
-export var jumpImpulse = 2.5
+export var jumpImpulse = 2.7
 export var gravity = -5.0
 export var groundAcceleration = 30.0
 export var groundSpeedLimit = 3.0
@@ -72,7 +72,19 @@ func _physics_process(delta):
 		self.velocity = restartVelocity
 	
 	var point_light = get_node("/root/Spatial/Lights/PlayerLight")
-	point_light.transform.origin = transform.origin
+	point_light.transform.origin.x = transform.origin.x
+	point_light.transform.origin.z = transform.origin.z
+	
+	var slide_count = get_slide_count()
+	for i in range(slide_count):
+		var collision = get_slide_collision(i)
+		var collider_layer = collision.collider.get_collision_layer()
+		if collider_layer == 2:
+			self.global_transform = restartTransform
+			self.velocity = restartVelocity
+
+		
+	
 	pass
 
 func _input(event):
