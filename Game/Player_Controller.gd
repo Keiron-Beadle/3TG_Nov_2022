@@ -12,6 +12,8 @@ export var groundFriction = 0.9
 
 export var mouseSensitivity = 0.1
 
+signal flash
+
 var velocity = Vector3.ZERO
 var timedown = Timer.new()
 var restartTransform
@@ -83,6 +85,7 @@ func _physics_process(delta):
 			self.global_transform = restartTransform
 			self.velocity = restartVelocity
 		if collider_layer == 16:
+			emit_signal("flash")
 			get_node("/root/Spatial/World/Mistletoe").queue_free()
 			get_node("/root/Spatial/World/OuterTree/FakeTop").visible = true
 			Engine.time_scale = 0.2

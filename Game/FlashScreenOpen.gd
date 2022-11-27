@@ -1,6 +1,5 @@
 extends Control
 
-
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -11,12 +10,17 @@ var flash_screens = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	set_process(false)
 	flash_screens.append($Thing1)
 	flash_screens.append($Thing2)
 	flash_screens.append($Thing3)
 	flash_screens.append($Thing3)
-	Engine.time_scale = 0.25
+	get_node("/root/Spatial/Player").connect("flash", self, "on_flash_screen")
+	#Engine.time_scale = 0.25
 
+func on_flash_screen():
+	set_process(true)
+	pass
 
 func _process(delta):
 	if(frame_count > 0.1):
@@ -32,5 +36,6 @@ func _process(delta):
 			
 			if cur_flashscreen >= len(flash_screens):
 				queue_free()
+				set_process(false)
 	
 	frame_count += delta

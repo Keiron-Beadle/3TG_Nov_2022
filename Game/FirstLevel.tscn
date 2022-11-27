@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Player_Controller.gd" type="Script" id=1]
 [ext_resource path="res://GlobalListener.gd" type="Script" id=2]
@@ -7,7 +7,12 @@
 [ext_resource path="res://Resources/Textures/Bark_06_basecolor.jpg" type="Texture" id=5]
 [ext_resource path="res://Resources/Textures/Bark_06_ambientOcclusion.jpg" type="Texture" id=6]
 [ext_resource path="res://default_env.tres" type="Environment" id=7]
-[ext_resource path="res://FlashScreenOpen.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Resources/Models/mistletoe.obj" type="ArrayMesh" id=8]
+[ext_resource path="res://Resources/Textures/12153_Mistletoe_diffuse.jpg" type="Texture" id=9]
+[ext_resource path="res://FlashScreenOpen.gd" type="Script" id=10]
+[ext_resource path="res://Images/thing3.png" type="Texture" id=11]
+[ext_resource path="res://Images/thing2.png" type="Texture" id=12]
+[ext_resource path="res://Images/thing1.png" type="Texture" id=13]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -207,4 +212,27 @@ omni_range = 23.0632
 
 [node name="Enemies" type="Spatial" parent="."]
 
-[node name="Control" parent="." instance=ExtResource( 8 )]
+[node name="ScreenFlash" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 10 )
+
+[node name="Thing1" type="TextureRect" parent="ScreenFlash"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 13 )
+
+[node name="Thing2" type="TextureRect" parent="ScreenFlash"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 12 )
+
+[node name="Thing3" type="TextureRect" parent="ScreenFlash"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 11 )
+
+[connection signal="flash" from="Player" to="ScreenFlash" method="_on_Player_flash"]
