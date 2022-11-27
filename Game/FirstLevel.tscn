@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Player_Controller.gd" type="Script" id=1]
 [ext_resource path="res://GlobalListener.gd" type="Script" id=2]
@@ -42,6 +42,9 @@ ao_texture_channel = 0
 [sub_resource type="SpatialMaterial" id=4]
 albedo_color = Color( 0.623529, 0.494118, 0.254902, 1 )
 albedo_texture = ExtResource( 5 )
+
+[sub_resource type="BoxShape" id=15]
+extents = Vector3( 2.67652, 3.0048, 4.55276 )
 
 [sub_resource type="SpatialMaterial" id=5]
 albedo_color = Color( 0.556863, 0.0627451, 0.0627451, 1 )
@@ -156,14 +159,22 @@ height = 124.109
 sides = 20
 material = SubResource( 4 )
 
-[node name="CSGBox11" type="CSGBox" parent="World/OuterTree"]
-transform = Transform( -2.37353e-08, -1.301, -4.87382e-08, 0, -5.68685e-08, 1.115, -0.543, 5.68685e-08, 2.13041e-15, -0.629685, -49.9507, 28.4376 )
+[node name="ExitBox" type="CSGBox" parent="World/OuterTree"]
+transform = Transform( -2.37353e-08, -1.301, -4.87382e-08, -1.70365e-23, -5.68685e-08, 1.115, -0.543, 5.68685e-08, 2.13041e-15, -0.629685, -49.9507, 28.4376 )
 operation = 2
 use_collision = true
 width = 6.16716
 height = 6.19326
 depth = 9.04224
 material = ExtResource( 14 )
+
+[node name="ExitArea" type="Area" parent="World/OuterTree"]
+transform = Transform( -2.37353e-08, -1.301, -4.87382e-08, 0, -5.68685e-08, 1.115, -0.543, 5.68685e-08, 2.13041e-15, -0.629685, -49.9507, 28.4376 )
+collision_layer = 64
+
+[node name="CollisionShape" type="CollisionShape" parent="World/OuterTree/ExitArea"]
+transform = Transform( 1, -7.10543e-15, -4.23516e-22, -1.77636e-15, 1, 3.55271e-15, 0, -7.10543e-15, 1, -0.796097, 0, 0 )
+shape = SubResource( 15 )
 
 [node name="Course" type="Spatial" parent="World"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0368919, 0, 0.145966 )
@@ -839,4 +850,5 @@ align = 1
 script = ExtResource( 18 )
 
 [connection signal="flash" from="Player" to="ScreenFlash" method="_on_Player_flash"]
+[connection signal="body_exited" from="World/OuterTree/ExitArea" to="Player" method="_on_Area_body_exited"]
 [connection signal="body_entered" from="Bottom Circle" to="Player" method="_on_Bottom_Circle_body_entered"]

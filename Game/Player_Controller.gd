@@ -16,6 +16,7 @@ signal flash
 signal addTime
 
 var wave1
+var wave2
 var player_light
 var velocity = Vector3.ZERO
 var timedown = Timer.new()
@@ -25,6 +26,7 @@ var restartVelocity
 func _ready():
 	player_light = get_node("/root/Spatial/Lights/PlayerLight")
 	wave1 = get_node("/root/Spatial/World/Angels/Wave1")
+	wave2 = get_node("/root/Spatial/World/Angels/Wave2")
 	restartTransform = self.global_transform
 	restartVelocity = self.velocity
 
@@ -110,9 +112,14 @@ func _on_Bottom_Circle_body_entered(body):
 	if body == self:
 		Engine.time_scale = 0.3
 		timedown.start()
-		var next_wave = get_node("/root/Spatial/World/Angels/Wave2")
-		for _i in next_wave.get_children():
+		for _i in wave2.get_children():
 			_i.set_physics_process(true)
+	
+func _on_Area_body_exited(body):
+	if body != self:
+		return
+	wave1.queue_free()
+	wave2.queue_free()
 	
 func time_finished():
 	Engine.time_scale = 1
