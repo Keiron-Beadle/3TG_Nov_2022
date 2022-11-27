@@ -15,8 +15,8 @@ func _ready():
 
 
 func _physics_process(delta):
-	var player_pos = player.transform.origin
-	var dir = transform.origin.direction_to(player_pos)
+	var player_pos = player.global_transform.origin
+	var dir = global_transform.origin.direction_to(player_pos)
 	var movement = Vector3.ZERO
 	if kill:
 		movement += dir * kill_speed * delta
