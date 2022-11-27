@@ -92,6 +92,9 @@ func _physics_process(delta):
 		if collider_layer == 16:
 			collision.collider.set_collision_layer(2)
 			emit_signal("addTime")
+		if collider_layer == 128:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			get_node("/root/Spatial/TEXT/LoveNote").visible = true
 		if collider_layer == 32:
 			wave1.visible = true
 			for _i in wave1.get_children():
@@ -108,6 +111,10 @@ func _physics_process(delta):
 			
 	pass
 	
+func _on_LoveNote_confirmed():
+	get_tree().quit()
+	pass
+	
 func _on_Bottom_Circle_body_entered(body):
 	if body == self:
 		Engine.time_scale = 0.3
@@ -117,9 +124,13 @@ func _on_Bottom_Circle_body_entered(body):
 	
 func _on_Area_body_exited(body):
 	if body != self:
-		return
-	wave1.queue_free()
-	wave2.queue_free()
+		return	
+	if is_instance_valid(wave1):
+		wave1.queue_free()
+	if is_instance_valid(wave2):
+		wave2.queue_free()
+	get_node("/root/Spatial/TEXT/Velocity").visible = false
+	get_node("/root/Spatial/TEXT/TimeLeft").visible = false
 	
 func time_finished():
 	Engine.time_scale = 1

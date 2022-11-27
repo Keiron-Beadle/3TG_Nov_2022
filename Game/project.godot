@@ -62,6 +62,7 @@ restart={
 3d_physics/layer_4="Angels"
 3d_physics/layer_5="Platforms"
 3d_physics/layer_6="Mistletoe"
+3d_physics/layer_8="Love"
 
 [physics]
 
