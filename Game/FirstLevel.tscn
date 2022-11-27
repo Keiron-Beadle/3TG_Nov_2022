@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Player_Controller.gd" type="Script" id=1]
 [ext_resource path="res://GlobalListener.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Resources/Textures/Bark_06_basecolor.jpg" type="Texture" id=5]
 [ext_resource path="res://Resources/Textures/Bark_06_ambientOcclusion.jpg" type="Texture" id=6]
 [ext_resource path="res://default_env.tres" type="Environment" id=7]
+[ext_resource path="res://FlashScreenOpen.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -180,3 +181,5 @@ light_energy = 3.822
 omni_range = 23.0632
 
 [node name="Enemies" type="Spatial" parent="."]
+
+[node name="Control" parent="." instance=ExtResource( 8 )]
