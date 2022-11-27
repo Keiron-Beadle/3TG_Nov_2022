@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Player_Controller.gd" type="Script" id=1]
 [ext_resource path="res://GlobalListener.gd" type="Script" id=2]
@@ -13,12 +13,16 @@
 [ext_resource path="res://Images/thing3.png" type="Texture" id=11]
 [ext_resource path="res://Images/thing2.png" type="Texture" id=12]
 [ext_resource path="res://Images/thing1.png" type="Texture" id=13]
+[ext_resource path="res://Resources/Models/Material_006.material" type="Material" id=14]
+[ext_resource path="res://SlowDownField.gd" type="Script" id=15]
+[ext_resource path="res://Resources/Models/angel_model.glb" type="PackedScene" id=16]
+[ext_resource path="res://AngelChase.gd" type="Script" id=17]
+[ext_resource path="res://TimeLeft.gd" type="Script" id=18]
+[ext_resource path="res://Resources/Fonts/SimplySquare.ttf" type="DynamicFontData" id=19]
+[ext_resource path="res://VelocityUpdate.gd" type="Script" id=20]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
-
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.4, 0.1, 0.4 )
 
 [sub_resource type="SpatialMaterial" id=3]
 albedo_texture = ExtResource( 5 )
@@ -36,6 +40,9 @@ ao_texture_channel = 0
 albedo_color = Color( 0.623529, 0.494118, 0.254902, 1 )
 albedo_texture = ExtResource( 5 )
 
+[sub_resource type="BoxShape" id=15]
+extents = Vector3( 2.67652, 3.0048, 4.55276 )
+
 [sub_resource type="SpatialMaterial" id=5]
 albedo_color = Color( 0.556863, 0.0627451, 0.0627451, 1 )
 emission_enabled = true
@@ -47,7 +54,53 @@ emission_on_uv2 = false
 [sub_resource type="SpatialMaterial" id=6]
 albedo_texture = ExtResource( 9 )
 
+[sub_resource type="CapsuleShape" id=14]
+radius = 2.91807
+height = 4.21696
+
+[sub_resource type="SpatialMaterial" id=16]
+albedo_texture = ExtResource( 5 )
+
+[sub_resource type="SpatialMaterial" id=17]
+albedo_texture = ExtResource( 5 )
+
+[sub_resource type="SpatialMaterial" id=18]
+albedo_color = Color( 0.278431, 0.278431, 0.278431, 1 )
+
+[sub_resource type="BoxShape" id=7]
+
+[sub_resource type="DynamicFont" id=11]
+size = 39
+outline_size = 1
+outline_color = Color( 0.847059, 0.0627451, 0.0627451, 1 )
+font_data = ExtResource( 19 )
+
+[sub_resource type="Theme" id=12]
+default_font = SubResource( 11 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 57
+font_data = ExtResource( 19 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 86
+outline_size = 1
+outline_color = Color( 0.0823529, 0.658824, 0.117647, 1 )
+font_data = ExtResource( 19 )
+
+[sub_resource type="Theme" id=10]
+default_font = SubResource( 13 )
+/fonts/font = SubResource( 9 )
+
+[sub_resource type="DynamicFont" id=19]
+size = 21
+font_data = ExtResource( 19 )
+
+[sub_resource type="Theme" id=20]
+default_font = SubResource( 19 )
+
 [node name="Spatial" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8147e-05, 32.2023, 0.000732422 )
 script = ExtResource( 2 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -55,15 +108,12 @@ environment = ExtResource( 7 )
 
 [node name="Player" type="KinematicBody" parent="."]
 transform = Transform( 0.413963, 0, 0.910294, 0, 1, 0, -0.910294, 0, 0.413963, 10.6465, 36.9018, 5.41394 )
+collision_mask = 190
 script = ExtResource( 1 )
 
 [node name="Main_Collider" type="CollisionShape" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.0761, 0 )
 shape = SubResource( 1 )
-
-[node name="Feet_Collider" type="CollisionShape" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.296934, 0 )
-shape = SubResource( 2 )
 
 [node name="Pivot" type="Spatial" parent="Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60607, 0 )
@@ -78,24 +128,32 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 [node name="CSGBox" type="CSGBox" parent="World/Funnel"]
 transform = Transform( 0.839721, 5.41368e-05, -0.543019, 0.000317995, 1, 0.000591427, 0.543019, -0.00066931, 0.83972, -1.48476, 55.692, 10.5359 )
 use_collision = true
+collision_layer = 16
+collision_mask = 0
 width = 7.17791
 height = 23.0252
 
 [node name="CSGBox2" type="CSGBox" parent="World/Funnel"]
 transform = Transform( 0.839721, 5.41368e-05, -0.543019, 0.000317995, 1, 0.000591427, 0.543019, -0.00066931, 0.83972, 7.0009, 55.692, -2.46775 )
 use_collision = true
+collision_layer = 16
+collision_mask = 0
 width = 7.17791
 height = 23.0252
 
 [node name="CSGBox3" type="CSGBox" parent="World/Funnel"]
 transform = Transform( -0.505091, 0.000671057, -0.863066, 0.000317995, 1, 0.000591427, 0.863066, 2.42813e-05, -0.505091, 5.72367, 55.692, 6.35034 )
 use_collision = true
+collision_layer = 16
+collision_mask = 0
 width = 15.8848
 height = 23.0252
 
 [node name="OuterTree" type="CSGCylinder" parent="World"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0734901, 12.2242, -0.182068 )
 use_collision = true
+collision_layer = 2
+collision_mask = 9
 radius = 30.0
 height = 123.821
 sides = 23
@@ -110,13 +168,22 @@ height = 124.109
 sides = 20
 material = SubResource( 4 )
 
-[node name="CSGBox11" type="CSGBox" parent="World/OuterTree"]
-transform = Transform( -2.37353e-08, -1.301, -4.87382e-08, 0, -5.68685e-08, 1.115, -0.543, 5.68685e-08, 2.13041e-15, -0.629685, -49.9507, 28.4376 )
+[node name="ExitBox" type="CSGBox" parent="World/OuterTree"]
+transform = Transform( -2.37353e-08, -1.301, -4.87382e-08, -1.70365e-23, -5.68685e-08, 1.115, -0.543, 5.68685e-08, 2.13041e-15, -0.629685, -49.9507, 28.4376 )
 operation = 2
 use_collision = true
 width = 6.16716
 height = 6.19326
 depth = 9.04224
+material = ExtResource( 14 )
+
+[node name="ExitArea" type="Area" parent="World/OuterTree"]
+transform = Transform( -2.37353e-08, -1.301, -4.87382e-08, 0, -5.68685e-08, 1.115, -0.543, 5.68685e-08, 2.13041e-15, -0.629685, -49.9507, 28.4376 )
+collision_layer = 64
+
+[node name="CollisionShape" type="CollisionShape" parent="World/OuterTree/ExitArea"]
+transform = Transform( 1, -7.10543e-15, -4.23516e-22, -1.77636e-15, 1, 3.55271e-15, 0, -7.10543e-15, 1, -0.796097, 0, 0 )
+shape = SubResource( 15 )
 
 [node name="Course" type="Spatial" parent="World"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0368919, 0, 0.145966 )
@@ -124,76 +191,645 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0368919, 0, 0.145966 )
 [node name="CSGBox" type="CSGBox" parent="World/Course"]
 transform = Transform( 0.690323, 0.521382, -0.501612, -0.577597, 0.814671, 0.0518842, 0.435701, 0.253913, 0.863535, 2.63309, 43.4957, 4.28881 )
 use_collision = true
+collision_layer = 16
 height = 12.0591
 depth = 14.1229
 
 [node name="CSGBox2" type="CSGBox" parent="World/Course"]
 transform = Transform( -0.352084, -0.448477, -1.97577, -0.519381, 1.41891, -0.115769, 0.77864, 0.743669, -0.97062, -6.73352, 34.0203, -4.02444 )
 use_collision = true
+collision_layer = 16
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox3" type="CSGBox" parent="World/Course"]
 transform = Transform( -0.875136, -0.605566, -0.702729, -0.410702, 1.50912, 0.201915, 0.255851, 0.351162, -2.07956, -24.5134, 21.3815, 8.78554 )
 use_collision = true
+collision_layer = 16
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox5" type="CSGBox" parent="World/Course"]
 transform = Transform( 0.848847, 0.693192, 0.717105, -0.45683, 1.47703, 0.120715, -0.266016, -0.324559, 2.08095, 23.9665, 4.74171, -7.65648 )
 use_collision = true
+collision_layer = 16
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox6" type="CSGBox" parent="World/Course"]
 transform = Transform( 0.0446284, 1.57133, 0.717105, -0.998098, 0.0470754, 0.120715, 0.04252, -0.544218, 2.08095, 5.82156, -5.19069, -26.1201 )
 use_collision = true
+collision_layer = 16
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox7" type="CSGBox" parent="World/Course"]
 transform = Transform( -0.648632, 1.26117, 0.14859, -0.179941, -0.110949, -2.16338, -0.739525, -1.07917, 0.396067, -10.4319, -6.85378, -23.9817 )
 use_collision = true
+collision_layer = 16
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox8" type="CSGBox" parent="World/Course"]
 transform = Transform( -0.829694, 0.734327, -0.753228, -0.46894, -1.46931, -0.00511427, -0.302823, 0.263364, 2.07166, -24.0878, -6.90103, -8.58568 )
 use_collision = true
+collision_layer = 16
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox10" type="CSGBox" parent="World/Course"]
 transform = Transform( -2.37353e-08, -1.301, 0, 0.543, -5.68685e-08, 0, 0, 0, 1.115, -0.611373, -36.0243, -0.666555 )
 use_collision = true
+collision_layer = 16
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox9" type="CSGBox" parent="World/Course"]
 transform = Transform( -2.47844e-08, -9.042, 0, 0.567, -3.95238e-07, 0, 0, 0, 5.822, -0.00899124, -24.5634, -0.264123 )
 use_collision = true
+collision_layer = 4
+collision_mask = 0
 height = 6.19326
 depth = 9.04224
 material = SubResource( 5 )
 
 [node name="CSGCylinder" type="CSGCylinder" parent="World/Course/CSGBox9"]
-transform = Transform( -7.70924e-08, 1.76367, 0, -0.110595, -4.83426e-09, 0, 0, 0, 0.171762, -1.37128, -0.000994383, 0.0453664 )
+transform = Transform( -7.70924e-08, 1.76367, 0, -0.110595, -4.83426e-09, 0, 0, 0, 0.171762, -0.0807991, -0.000994387, 0.0453664 )
 operation = 2
 radius = 5.515
-height = 4.37
+height = 1.454
 
 [node name="CSGBox4" type="CSGBox" parent="World/Course"]
 transform = Transform( 0.125159, 1.56297, -0.702729, 0.990672, -0.167841, 0.201915, 0.0538955, -0.544458, -2.07956, -8.70848, 10.7452, 9.45266 )
 use_collision = true
+collision_layer = 16
+collision_mask = 0
 height = 6.19326
 depth = 9.04224
 
 [node name="Mistletoe" type="CSGMesh" parent="World"]
 transform = Transform( 0.322814, -0.0689358, 0.225918, 0.0916453, 0.389169, -0.0122025, -0.217697, 0.0616086, 0.329867, 0.0564886, 78.0639, -0.0504845 )
 use_collision = true
-collision_layer = 16
+collision_layer = 32
+collision_mask = 0
 mesh = ExtResource( 8 )
 material = SubResource( 6 )
+
+[node name="Angels" type="Spatial" parent="World"]
+
+[node name="Wave1" type="Spatial" parent="World/Angels"]
+
+[node name="Angel1" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.24676, 60.3645, -26.6847 )
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel1" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel1"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave1/Angel1"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave1/Angel1"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Angel2" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2877, 61.7384, -22.6738 )
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel2" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel2"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave1/Angel2"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave1/Angel2"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Angel3" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7699, 60.3645, 8.96578 )
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel3" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel3"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave1/Angel3"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave1/Angel3"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Angel4" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7908, 54.9263, -9.25867 )
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel4" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel4"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave1/Angel4"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave1/Angel4"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Angel5" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.1005, 53.0567, 18.6225 )
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel5" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel5"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave1/Angel5"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave1/Angel5"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Angel6" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.21708, 53.0567, -26.3107 )
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel6" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel6"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave1/Angel6"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave1/Angel6"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Angel7" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.7728, 36.1298, -9.10983 )
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel7" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel7"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave1/Angel7"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave1/Angel7"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Angel8" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.4837, 36.1298, 13.7194 )
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel8" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel8"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave1/Angel8"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave1/Angel8"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Wave2" type="Spatial" parent="World/Angels"]
+
+[node name="Angel9" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.80255, -41.4261, -26.4026 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel9" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel9"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave2/Angel9"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave2/Angel9"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Angel10" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.37646, -41.4261, -26.4026 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel10" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel10"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave2/Angel10"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave2/Angel10"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Angel11" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.3009, -41.4261, -15.2575 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel11" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel11"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave2/Angel11"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave2/Angel11"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Angel12" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3567, -41.4261, -16.0164 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel12" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel12"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave2/Angel12"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave2/Angel12"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Angel13" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25.4466, -41.4261, 3.87207 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel13" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel13"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave2/Angel13"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave2/Angel13"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Angel14" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7235, -41.4261, 16.8157 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel14" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel14"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave2/Angel14"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave2/Angel14"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Angel15" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9029, -41.4261, 23.694 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel15" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel15"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave2/Angel15"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave2/Angel15"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Angel16" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.9412, -41.4063, 1.48535 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel16" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel16"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Angels/Wave2/Angel16"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight2" type="OmniLight" parent="World/Angels/Wave2/Angel16"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.720651, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0.835294, 0, 0, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="Spatial" type="Spatial" parent="World"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -39.0621, 38.1045 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="World/Spatial"]
+transform = Transform( 1, 0, 0, 0, 0.705154, 0.709054, 0, -0.709054, 0.705154, 0, -27.1311, 18.2387 )
+use_collision = true
+collision_layer = 2
+radius = 4.563
+height = 72.178
+material = SubResource( 16 )
+
+[node name="CSGCylinder2" type="CSGCylinder" parent="World/Spatial/CSGCylinder"]
+operation = 2
+radius = 4.038
+height = 72.178
+material = SubResource( 17 )
+
+[node name="CSGBox" type="CSGBox" parent="World/Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -60.4137, 50.188 )
+use_collision = true
+collision_layer = 16
+width = 16.337
+depth = 23.066
+material = SubResource( 18 )
+
+[node name="LoveInterest" type="KinematicBody" parent="World/Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.707901, -56.6368, 60.2681 )
+collision_layer = 128
+
+[node name="angel_model" parent="World/Spatial/LoveInterest" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Spatial/LoveInterest"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="World/Spatial/LoveInterest"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.674483, 2.23663, -0.941229 )
+layers = 2
+light_color = Color( 0, 0.909804, 0.976471, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
+
+[node name="OmniLight3" type="OmniLight" parent="World/Spatial/LoveInterest"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.617901, 2.23663, -0.941231 )
+layers = 2
+light_color = Color( 0, 0.909804, 0.976471, 1 )
+light_energy = 13.105
+light_indirect_energy = 0.0
+light_specular = 0.0
+omni_attenuation = 66.2569
 
 [node name="Lights" type="Spatial" parent="."]
 
@@ -210,7 +846,13 @@ light_color = Color( 0, 0.0392157, 1, 1 )
 light_energy = 3.822
 omni_range = 23.0632
 
-[node name="Enemies" type="Spatial" parent="."]
+[node name="SpotLight" type="SpotLight" parent="Lights"]
+transform = Transform( -0.971214, -0.190156, 0.14347, -0.0811544, 0.830392, 0.551237, -0.223958, 0.523726, -0.821921, 0.955601, -17.26, 7.40283 )
+light_color = Color( 1, 0.913725, 0, 1 )
+light_energy = 2.177
+light_indirect_energy = 1.545
+light_specular = 0.208
+spot_range = 91.0544
 
 [node name="ScreenFlash" type="Control" parent="."]
 margin_right = 40.0
@@ -235,4 +877,55 @@ margin_right = 40.0
 margin_bottom = 40.0
 texture = ExtResource( 11 )
 
+[node name="Bottom Circle" type="Area" parent="."]
+transform = Transform( 2.99, 0, 0, 0, 0.173, 0, 0, 0, 2.609, 0, -12.6813, 0 )
+collision_mask = 257
+script = ExtResource( 15 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bottom Circle"]
+shape = SubResource( 7 )
+
+[node name="TEXT" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Velocity" type="Label" parent="TEXT"]
+margin_left = 582.0
+margin_top = 98.0
+margin_right = 760.0
+margin_bottom = 145.0
+theme = SubResource( 12 )
+text = "0.0 m/s"
+script = ExtResource( 20 )
+
+[node name="TimeLeft" type="Label" parent="TEXT"]
+margin_left = 471.0
+margin_top = 12.0
+margin_right = 853.0
+margin_bottom = 115.0
+rect_clip_content = true
+theme = SubResource( 10 )
+text = "3.00 s"
+align = 1
+script = ExtResource( 18 )
+
+[node name="LoveNote" type="AcceptDialog" parent="TEXT"]
+visible = true
+margin_left = 493.0
+margin_top = 341.0
+margin_right = 843.0
+margin_bottom = 491.0
+rect_min_size = Vector2( 2.079, 12.878 )
+theme = SubResource( 20 )
+popup_exclusive = true
+window_title = "Love Interest"
+dialog_text = "You went all the way up there to bring me a Mistletoe Reef? Thank you so much, this is going to be the best Christmas ever!"
+dialog_autowrap = true
+
 [connection signal="flash" from="Player" to="ScreenFlash" method="_on_Player_flash"]
+[connection signal="body_exited" from="World/OuterTree/ExitArea" to="Player" method="_on_Area_body_exited"]
+[connection signal="body_entered" from="Bottom Circle" to="Player" method="_on_Bottom_Circle_body_entered"]
+[connection signal="confirmed" from="TEXT/LoveNote" to="Player" method="_on_LoveNote_confirmed"]

@@ -13,13 +13,20 @@ export var groundFriction = 0.9
 export var mouseSensitivity = 0.1
 
 signal flash
+signal addTime
 
+var wave1
+var wave2
+var player_light
 var velocity = Vector3.ZERO
 var timedown = Timer.new()
 var restartTransform
 var restartVelocity
 
 func _ready():
+	player_light = get_node("/root/Spatial/Lights/PlayerLight")
+	wave1 = get_node("/root/Spatial/World/Angels/Wave1")
+	wave2 = get_node("/root/Spatial/World/Angels/Wave2")
 	restartTransform = self.global_transform
 	restartVelocity = self.velocity
 
@@ -73,18 +80,27 @@ func _physics_process(delta):
 		self.global_transform = restartTransform
 		self.velocity = restartVelocity
 	
-	var point_light = get_node("/root/Spatial/Lights/PlayerLight")
-	point_light.transform.origin = transform.origin
+	player_light.transform.origin = transform.origin
 	
 	#Collision detection
 	var slide_count = get_slide_count()
 	for i in range(slide_count):
 		var collision = get_slide_collision(i)
 		var collider_layer = collision.collider.get_collision_layer()
-		if collider_layer == 2:
-			self.global_transform = restartTransform
-			self.velocity = restartVelocity
+		if collider_layer == 4 or collider_layer == 8:
+			get_tree().reload_current_scene()
 		if collider_layer == 16:
+			collision.collider.set_collision_layer(2)
+			emit_signal("addTime")
+		if collider_layer == 128:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			get_node("/root/Spatial/TEXT/LoveNote").visible = true
+		if collider_layer == 32:
+			wave1.visible = true
+			for _i in wave1.get_children():
+				_i.set_physics_process(true)
+			get_node("/root/Spatial/TEXT").visible = true
+			get_node("/root/Spatial/TEXT/TimeLeft").set_process(true)
 			emit_signal("flash")
 			get_node("/root/Spatial/World/Mistletoe").queue_free()
 			get_node("/root/Spatial/World/OuterTree/FakeTop").visible = true
@@ -95,10 +111,29 @@ func _physics_process(delta):
 			
 	pass
 	
+func _on_LoveNote_confirmed():
+	get_tree().quit()
+	pass
+	
+func _on_Bottom_Circle_body_entered(body):
+	if body == self:
+		Engine.time_scale = 0.3
+		timedown.start()
+		for _i in wave2.get_children():
+			_i.set_physics_process(true)
+	
+func _on_Area_body_exited(body):
+	if body != self:
+		return	
+	if is_instance_valid(wave1):
+		wave1.queue_free()
+	if is_instance_valid(wave2):
+		wave2.queue_free()
+	get_node("/root/Spatial/TEXT/Velocity").visible = false
+	get_node("/root/Spatial/TEXT/TimeLeft").visible = false
+	
 func time_finished():
 	Engine.time_scale = 1
-	timedown = get_tree().create_timer(4)
-	timedown.connect("timeout", self, "time_finished")
 	pass
 
 func _input(event):
