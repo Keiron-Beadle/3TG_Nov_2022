@@ -95,10 +95,15 @@ func _physics_process(delta):
 			
 	pass
 	
+func _on_Bottom_Circle_body_entered(body):
+	if body == self:
+		Engine.time_scale = 0.3
+		#timedown.connect("timeout", self, "time_finished")
+		#add_child(timedown)
+		timedown.start()
+	
 func time_finished():
 	Engine.time_scale = 1
-	timedown = get_tree().create_timer(4)
-	timedown.connect("timeout", self, "time_finished")
 	pass
 
 func _input(event):

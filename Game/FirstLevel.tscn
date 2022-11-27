@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Player_Controller.gd" type="Script" id=1]
 [ext_resource path="res://GlobalListener.gd" type="Script" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://Images/thing3.png" type="Texture" id=11]
 [ext_resource path="res://Images/thing2.png" type="Texture" id=12]
 [ext_resource path="res://Images/thing1.png" type="Texture" id=13]
+[ext_resource path="res://Resources/Models/Material_006.material" type="Material" id=14]
+[ext_resource path="res://SlowDownField.gd" type="Script" id=15]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -46,6 +48,8 @@ emission_on_uv2 = false
 
 [sub_resource type="SpatialMaterial" id=6]
 albedo_texture = ExtResource( 9 )
+
+[sub_resource type="BoxShape" id=7]
 
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 2 )
@@ -117,6 +121,7 @@ use_collision = true
 width = 6.16716
 height = 6.19326
 depth = 9.04224
+material = ExtResource( 14 )
 
 [node name="Course" type="Spatial" parent="World"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0368919, 0, 0.145966 )
@@ -210,6 +215,14 @@ light_color = Color( 0, 0.0392157, 1, 1 )
 light_energy = 3.822
 omni_range = 23.0632
 
+[node name="SpotLight" type="SpotLight" parent="Lights"]
+transform = Transform( -0.971214, -0.190156, 0.14347, -0.0811544, 0.830392, 0.551237, -0.223958, 0.523726, -0.821921, 0.955601, -17.26, 7.40283 )
+light_color = Color( 1, 0.913725, 0, 1 )
+light_energy = 2.177
+light_indirect_energy = 1.545
+light_specular = 0.208
+spot_range = 91.0544
+
 [node name="Enemies" type="Spatial" parent="."]
 
 [node name="ScreenFlash" type="Control" parent="."]
@@ -235,4 +248,12 @@ margin_right = 40.0
 margin_bottom = 40.0
 texture = ExtResource( 11 )
 
+[node name="Bottom Circle" type="Area" parent="."]
+transform = Transform( 2.99005, 0, 0, 0, 1, 0, 0, 0, 3.03593, 0, -12.6813, 0 )
+script = ExtResource( 15 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bottom Circle"]
+shape = SubResource( 7 )
+
 [connection signal="flash" from="Player" to="ScreenFlash" method="_on_Player_flash"]
+[connection signal="body_entered" from="Bottom Circle" to="Player" method="_on_Bottom_Circle_body_entered"]
