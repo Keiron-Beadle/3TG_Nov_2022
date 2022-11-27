@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Player_Controller.gd" type="Script" id=1]
 [ext_resource path="res://GlobalListener.gd" type="Script" id=2]
@@ -15,6 +15,10 @@
 [ext_resource path="res://Images/thing1.png" type="Texture" id=13]
 [ext_resource path="res://Resources/Models/Material_006.material" type="Material" id=14]
 [ext_resource path="res://SlowDownField.gd" type="Script" id=15]
+[ext_resource path="res://Resources/Models/angel_model.glb" type="PackedScene" id=16]
+[ext_resource path="res://AngelChase.gd" type="Script" id=17]
+[ext_resource path="res://TimeLeft.gd" type="Script" id=18]
+[ext_resource path="res://Resources/Fonts/SimplySquare.ttf" type="DynamicFontData" id=19]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -49,7 +53,34 @@ emission_on_uv2 = false
 [sub_resource type="SpatialMaterial" id=6]
 albedo_texture = ExtResource( 9 )
 
+[sub_resource type="CapsuleShape" id=14]
+radius = 1.59209
+height = 4.21696
+
 [sub_resource type="BoxShape" id=7]
+
+[sub_resource type="DynamicFont" id=11]
+size = 51
+outline_size = 1
+outline_color = Color( 0.847059, 0.0627451, 0.0627451, 1 )
+font_data = ExtResource( 19 )
+
+[sub_resource type="Theme" id=12]
+default_font = SubResource( 11 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 57
+font_data = ExtResource( 19 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 111
+outline_size = 1
+outline_color = Color( 0.0823529, 0.658824, 0.117647, 1 )
+font_data = ExtResource( 19 )
+
+[sub_resource type="Theme" id=10]
+default_font = SubResource( 13 )
+/fonts/font = SubResource( 9 )
 
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 2 )
@@ -202,9 +233,73 @@ material = SubResource( 6 )
 
 [node name="Angels" type="Spatial" parent="World"]
 
-[node name="RigidBody" type="RigidBody" parent="World/Angels"]
+[node name="Wave1" type="Spatial" parent="World/Angels"]
 
-[node name="Angel_Mesh" type="CSGMesh" parent="World/Angels/RigidBody"]
+[node name="Angel1" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, -8.24676, 60.3645, -26.7252 )
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel1" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel1"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Angel2" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, -13.2877, 61.7384, -22.6738 )
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel2" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel2"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Angel3" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, -22.7699, 60.3645, 8.96578 )
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel3" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel3"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Angel4" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, -27.8285, 54.9263, -9.25867 )
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel4" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel4"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Angel5" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( 0.985856, 0, 0.167595, 0, 1, 0, -0.167595, 0, 0.985856, -22.6786, 53.0567, 24.3686 )
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel5" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel5"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Angel6" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( -0.963891, 0, -0.266296, 0, 1, 0, 0.266296, 0, -0.963891, -3.21708, 53.0567, -26.3107 )
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel6" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel6"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
 
 [node name="Lights" type="Spatial" parent="."]
 
@@ -228,8 +323,6 @@ light_energy = 2.177
 light_indirect_energy = 1.545
 light_specular = 0.208
 spot_range = 91.0544
-
-[node name="Enemies" type="Spatial" parent="."]
 
 [node name="ScreenFlash" type="Control" parent="."]
 margin_right = 40.0
@@ -260,6 +353,29 @@ script = ExtResource( 15 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Bottom Circle"]
 shape = SubResource( 7 )
+
+[node name="Text" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Velocity" type="Label" parent="Text"]
+margin_left = 937.0
+margin_top = 126.0
+margin_right = 1115.0
+margin_bottom = 173.0
+theme = SubResource( 12 )
+text = "0.0 m/s"
+
+[node name="TimeLeft" type="Label" parent="Text"]
+margin_left = 836.0
+margin_top = 15.0
+margin_right = 1218.0
+margin_bottom = 108.0
+rect_clip_content = true
+theme = SubResource( 10 )
+text = "3.00 s"
+align = 1
+script = ExtResource( 18 )
 
 [connection signal="flash" from="Player" to="ScreenFlash" method="_on_Player_flash"]
 [connection signal="body_entered" from="Bottom Circle" to="Player" method="_on_Bottom_Circle_body_entered"]
