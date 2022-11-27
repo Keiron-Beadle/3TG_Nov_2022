@@ -82,14 +82,17 @@ func _physics_process(delta):
 	for i in range(slide_count):
 		var collision = get_slide_collision(i)
 		var collider_layer = collision.collider.get_collision_layer()
-		if collider_layer == 2:
+		if collider_layer == 4:
 			self.global_transform = restartTransform
 			self.velocity = restartVelocity
-		if collider_layer == 32:
-			collision.collider.set_collision_layer(1)
-			emit_signal("addTime")
 		if collider_layer == 16:
-			get_node("/root/Spatial/World/Angels/Wave1").visible = true
+			collision.collider.set_collision_layer(2)
+			emit_signal("addTime")
+		if collider_layer == 32:
+			var wave = get_node("/root/Spatial/World/Angels/Wave1")
+			wave.visible = true
+			for _i in wave.get_children():
+				_i.set_physics_process(true)
 			get_node("/root/Spatial/TEXT").visible = true
 			get_node("/root/Spatial/TEXT/TimeLeft").set_process(true)
 			emit_signal("flash")
@@ -106,6 +109,9 @@ func _on_Bottom_Circle_body_entered(body):
 	if body == self:
 		Engine.time_scale = 0.3
 		timedown.start()
+		var next_wave = get_node("/root/Spatial/World/Angels/Wave2")
+		for _i in next_wave.get_children():
+			_i.set_physics_process(true)
 	
 func time_finished():
 	Engine.time_scale = 1

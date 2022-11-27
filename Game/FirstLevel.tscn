@@ -91,6 +91,7 @@ environment = ExtResource( 7 )
 
 [node name="Player" type="KinematicBody" parent="."]
 transform = Transform( 0.413963, 0, 0.910294, 0, 1, 0, -0.910294, 0, 0.413963, 10.6465, 36.9018, 5.41394 )
+collision_mask = 62
 script = ExtResource( 1 )
 
 [node name="Main_Collider" type="CollisionShape" parent="Player"]
@@ -114,24 +115,32 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 [node name="CSGBox" type="CSGBox" parent="World/Funnel"]
 transform = Transform( 0.839721, 5.41368e-05, -0.543019, 0.000317995, 1, 0.000591427, 0.543019, -0.00066931, 0.83972, -1.48476, 55.692, 10.5359 )
 use_collision = true
+collision_layer = 16
+collision_mask = 0
 width = 7.17791
 height = 23.0252
 
 [node name="CSGBox2" type="CSGBox" parent="World/Funnel"]
 transform = Transform( 0.839721, 5.41368e-05, -0.543019, 0.000317995, 1, 0.000591427, 0.543019, -0.00066931, 0.83972, 7.0009, 55.692, -2.46775 )
 use_collision = true
+collision_layer = 16
+collision_mask = 0
 width = 7.17791
 height = 23.0252
 
 [node name="CSGBox3" type="CSGBox" parent="World/Funnel"]
 transform = Transform( -0.505091, 0.000671057, -0.863066, 0.000317995, 1, 0.000591427, 0.863066, 2.42813e-05, -0.505091, 5.72367, 55.692, 6.35034 )
 use_collision = true
+collision_layer = 16
+collision_mask = 0
 width = 15.8848
 height = 23.0252
 
 [node name="OuterTree" type="CSGCylinder" parent="World"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0734901, 12.2242, -0.182068 )
 use_collision = true
+collision_layer = 2
+collision_mask = 9
 radius = 30.0
 height = 123.821
 sides = 23
@@ -161,83 +170,87 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0368919, 0, 0.145966 )
 [node name="CSGBox" type="CSGBox" parent="World/Course"]
 transform = Transform( 0.690323, 0.521382, -0.501612, -0.577597, 0.814671, 0.0518842, 0.435701, 0.253913, 0.863535, 2.63309, 43.4957, 4.28881 )
 use_collision = true
-collision_layer = 32
+collision_layer = 16
 height = 12.0591
 depth = 14.1229
 
 [node name="CSGBox2" type="CSGBox" parent="World/Course"]
 transform = Transform( -0.352084, -0.448477, -1.97577, -0.519381, 1.41891, -0.115769, 0.77864, 0.743669, -0.97062, -6.73352, 34.0203, -4.02444 )
 use_collision = true
-collision_layer = 32
+collision_layer = 16
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox3" type="CSGBox" parent="World/Course"]
 transform = Transform( -0.875136, -0.605566, -0.702729, -0.410702, 1.50912, 0.201915, 0.255851, 0.351162, -2.07956, -24.5134, 21.3815, 8.78554 )
 use_collision = true
-collision_layer = 32
+collision_layer = 16
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox5" type="CSGBox" parent="World/Course"]
 transform = Transform( 0.848847, 0.693192, 0.717105, -0.45683, 1.47703, 0.120715, -0.266016, -0.324559, 2.08095, 23.9665, 4.74171, -7.65648 )
 use_collision = true
-collision_layer = 32
+collision_layer = 16
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox6" type="CSGBox" parent="World/Course"]
 transform = Transform( 0.0446284, 1.57133, 0.717105, -0.998098, 0.0470754, 0.120715, 0.04252, -0.544218, 2.08095, 5.82156, -5.19069, -26.1201 )
 use_collision = true
-collision_layer = 32
+collision_layer = 16
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox7" type="CSGBox" parent="World/Course"]
 transform = Transform( -0.648632, 1.26117, 0.14859, -0.179941, -0.110949, -2.16338, -0.739525, -1.07917, 0.396067, -10.4319, -6.85378, -23.9817 )
 use_collision = true
-collision_layer = 32
+collision_layer = 16
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox8" type="CSGBox" parent="World/Course"]
 transform = Transform( -0.829694, 0.734327, -0.753228, -0.46894, -1.46931, -0.00511427, -0.302823, 0.263364, 2.07166, -24.0878, -6.90103, -8.58568 )
 use_collision = true
-collision_layer = 32
+collision_layer = 16
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox10" type="CSGBox" parent="World/Course"]
 transform = Transform( -2.37353e-08, -1.301, 0, 0.543, -5.68685e-08, 0, 0, 0, 1.115, -0.611373, -36.0243, -0.666555 )
 use_collision = true
-collision_layer = 32
+collision_layer = 16
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox9" type="CSGBox" parent="World/Course"]
 transform = Transform( -2.47844e-08, -9.042, 0, 0.567, -3.95238e-07, 0, 0, 0, 5.822, -0.00899124, -24.5634, -0.264123 )
 use_collision = true
+collision_layer = 4
+collision_mask = 0
 height = 6.19326
 depth = 9.04224
 material = SubResource( 5 )
 
 [node name="CSGCylinder" type="CSGCylinder" parent="World/Course/CSGBox9"]
-transform = Transform( -7.70924e-08, 1.76367, 0, -0.110595, -4.83426e-09, 0, 0, 0, 0.171762, -1.37128, -0.000994383, 0.0453664 )
+transform = Transform( -7.70924e-08, 1.76367, 0, -0.110595, -4.83426e-09, 0, 0, 0, 0.171762, -0.0807991, -0.000994387, 0.0453664 )
 operation = 2
 radius = 5.515
-height = 4.37
+height = 1.454
 
 [node name="CSGBox4" type="CSGBox" parent="World/Course"]
 transform = Transform( 0.125159, 1.56297, -0.702729, 0.990672, -0.167841, 0.201915, 0.0538955, -0.544458, -2.07956, -8.70848, 10.7452, 9.45266 )
 use_collision = true
-collision_layer = 32
+collision_layer = 16
+collision_mask = 0
 height = 6.19326
 depth = 9.04224
 
 [node name="Mistletoe" type="CSGMesh" parent="World"]
 transform = Transform( 0.322814, -0.0689358, 0.225918, 0.0916453, 0.389169, -0.0122025, -0.217697, 0.0616086, 0.329867, 0.0564886, 78.0639, -0.0504845 )
 use_collision = true
-collision_layer = 16
+collision_layer = 32
+collision_mask = 0
 mesh = ExtResource( 8 )
 material = SubResource( 6 )
 
@@ -247,6 +260,8 @@ material = SubResource( 6 )
 
 [node name="Angel1" type="KinematicBody" parent="World/Angels/Wave1"]
 transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, -8.24676, 60.3645, -26.7252 )
+collision_layer = 8
+collision_mask = 0
 script = ExtResource( 17 )
 
 [node name="angel_model" parent="World/Angels/Wave1/Angel1" instance=ExtResource( 16 )]
@@ -258,6 +273,8 @@ shape = SubResource( 14 )
 
 [node name="Angel2" type="KinematicBody" parent="World/Angels/Wave1"]
 transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, -13.2877, 61.7384, -22.6738 )
+collision_layer = 8
+collision_mask = 0
 script = ExtResource( 17 )
 
 [node name="angel_model" parent="World/Angels/Wave1/Angel2" instance=ExtResource( 16 )]
@@ -269,6 +286,8 @@ shape = SubResource( 14 )
 
 [node name="Angel3" type="KinematicBody" parent="World/Angels/Wave1"]
 transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, -22.7699, 60.3645, 8.96578 )
+collision_layer = 8
+collision_mask = 0
 script = ExtResource( 17 )
 
 [node name="angel_model" parent="World/Angels/Wave1/Angel3" instance=ExtResource( 16 )]
@@ -279,7 +298,9 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0
 shape = SubResource( 14 )
 
 [node name="Angel4" type="KinematicBody" parent="World/Angels/Wave1"]
-transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, -27.8285, 54.9263, -9.25867 )
+transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, -21.7908, 54.9263, -9.25867 )
+collision_layer = 8
+collision_mask = 0
 script = ExtResource( 17 )
 
 [node name="angel_model" parent="World/Angels/Wave1/Angel4" instance=ExtResource( 16 )]
@@ -290,7 +311,9 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0
 shape = SubResource( 14 )
 
 [node name="Angel5" type="KinematicBody" parent="World/Angels/Wave1"]
-transform = Transform( 0.985856, 0, 0.167595, 0, 1, 0, -0.167595, 0, 0.985856, -22.6786, 53.0567, 24.3686 )
+transform = Transform( 0.985856, 0, 0.167595, 0, 1, 0, -0.167595, 0, 0.985856, -14.1005, 53.0567, 18.6225 )
+collision_layer = 8
+collision_mask = 0
 script = ExtResource( 17 )
 
 [node name="angel_model" parent="World/Angels/Wave1/Angel5" instance=ExtResource( 16 )]
@@ -302,12 +325,146 @@ shape = SubResource( 14 )
 
 [node name="Angel6" type="KinematicBody" parent="World/Angels/Wave1"]
 transform = Transform( -0.963891, 0, -0.266296, 0, 1, 0, 0.266296, 0, -0.963891, -3.21708, 53.0567, -26.3107 )
+collision_layer = 8
+collision_mask = 0
 script = ExtResource( 17 )
 
 [node name="angel_model" parent="World/Angels/Wave1/Angel6" instance=ExtResource( 16 )]
 transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel6"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Angel7" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( -0.963891, 0, -0.266296, 0, 1, 0, 0.266296, 0, -0.963891, 24.7728, 36.1298, -9.10983 )
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel7" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel7"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Angel8" type="KinematicBody" parent="World/Angels/Wave1"]
+transform = Transform( -0.963891, 0, -0.266296, 0, 1, 0, 0.266296, 0, -0.963891, 22.4837, 36.1298, 13.7194 )
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave1/Angel8" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave1/Angel8"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Wave2" type="Spatial" parent="World/Angels"]
+
+[node name="Angel9" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, -8.80255, -41.4261, -26.4026 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel9" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel9"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Angel10" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, 8.37646, -41.4261, -26.4026 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel10" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel10"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Angel11" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, 20.3009, -41.4261, -15.2575 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel11" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel11"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Angel12" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, -23.3567, -41.4261, -16.0164 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel12" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel12"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Angel13" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, -25.4466, -41.4261, 3.87207 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel13" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel13"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Angel14" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, -18.7235, -41.4261, 16.8157 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel14" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel14"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Angel15" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, 10.9029, -41.4261, 23.694 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel15" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel15"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="Angel16" type="KinematicBody" parent="World/Angels/Wave2"]
+transform = Transform( -0.972561, 0, -0.232648, 0, 1, 0, 0.232648, 0, -0.972561, 23.9412, -41.4063, 1.48535 )
+collision_layer = 8
+collision_mask = 10
+script = ExtResource( 17 )
+
+[node name="angel_model" parent="World/Angels/Wave2/Angel16" instance=ExtResource( 16 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Angels/Wave2/Angel16"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 14 )
 
@@ -358,7 +515,8 @@ margin_bottom = 40.0
 texture = ExtResource( 11 )
 
 [node name="Bottom Circle" type="Area" parent="."]
-transform = Transform( 2.99005, 0, 0, 0, 1, 0, 0, 0, 3.03593, 0, -12.6813, 0 )
+transform = Transform( 2.99, 0, 0, 0, 0.173, 0, 0, 0, 2.609, 0, -12.6813, 0 )
+collision_mask = 257
 script = ExtResource( 15 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Bottom Circle"]
