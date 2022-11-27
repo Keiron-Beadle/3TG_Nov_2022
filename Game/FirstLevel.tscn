@@ -200,6 +200,12 @@ collision_layer = 16
 mesh = ExtResource( 8 )
 material = SubResource( 6 )
 
+[node name="Angels" type="Spatial" parent="World"]
+
+[node name="RigidBody" type="RigidBody" parent="World/Angels"]
+
+[node name="Angel_Mesh" type="CSGMesh" parent="World/Angels/RigidBody"]
+
 [node name="Lights" type="Spatial" parent="."]
 
 [node name="PlayerLight" type="OmniLight" parent="Lights"]

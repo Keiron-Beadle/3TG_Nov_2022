@@ -98,8 +98,6 @@ func _physics_process(delta):
 func _on_Bottom_Circle_body_entered(body):
 	if body == self:
 		Engine.time_scale = 0.3
-		#timedown.connect("timeout", self, "time_finished")
-		#add_child(timedown)
 		timedown.start()
 	
 func time_finished():
