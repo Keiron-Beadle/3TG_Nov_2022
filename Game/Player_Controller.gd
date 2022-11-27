@@ -15,12 +15,16 @@ export var mouseSensitivity = 0.1
 signal flash
 signal addTime
 
+var wave1
+var player_light
 var velocity = Vector3.ZERO
 var timedown = Timer.new()
 var restartTransform
 var restartVelocity
 
 func _ready():
+	player_light = get_node("/root/Spatial/Lights/PlayerLight")
+	wave1 = get_node("/root/Spatial/World/Angels/Wave1")
 	restartTransform = self.global_transform
 	restartVelocity = self.velocity
 
@@ -74,8 +78,7 @@ func _physics_process(delta):
 		self.global_transform = restartTransform
 		self.velocity = restartVelocity
 	
-	var point_light = get_node("/root/Spatial/Lights/PlayerLight")
-	point_light.transform.origin = transform.origin
+	player_light.transform.origin = transform.origin
 	
 	#Collision detection
 	var slide_count = get_slide_count()
@@ -88,9 +91,8 @@ func _physics_process(delta):
 			collision.collider.set_collision_layer(2)
 			emit_signal("addTime")
 		if collider_layer == 32:
-			var wave = get_node("/root/Spatial/World/Angels/Wave1")
-			wave.visible = true
-			for _i in wave.get_children():
+			wave1.visible = true
+			for _i in wave1.get_children():
 				_i.set_physics_process(true)
 			get_node("/root/Spatial/TEXT").visible = true
 			get_node("/root/Spatial/TEXT/TimeLeft").set_process(true)

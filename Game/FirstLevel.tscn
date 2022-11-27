@@ -61,7 +61,7 @@ height = 4.21696
 [sub_resource type="BoxShape" id=7]
 
 [sub_resource type="DynamicFont" id=11]
-size = 51
+size = 39
 outline_size = 1
 outline_color = Color( 0.847059, 0.0627451, 0.0627451, 1 )
 font_data = ExtResource( 19 )
@@ -74,7 +74,7 @@ size = 57
 font_data = ExtResource( 19 )
 
 [sub_resource type="DynamicFont" id=13]
-size = 111
+size = 86
 outline_size = 1
 outline_color = Color( 0.0823529, 0.658824, 0.117647, 1 )
 font_data = ExtResource( 19 )
@@ -815,21 +815,23 @@ shape = SubResource( 7 )
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Velocity" type="Label" parent="TEXT"]
-margin_left = 937.0
-margin_top = 126.0
-margin_right = 1115.0
-margin_bottom = 173.0
+margin_left = 589.0
+margin_top = 99.0
+margin_right = 767.0
+margin_bottom = 146.0
 theme = SubResource( 12 )
 text = "0.0 m/s"
 script = ExtResource( 20 )
 
 [node name="TimeLeft" type="Label" parent="TEXT"]
-margin_left = 836.0
-margin_top = 15.0
-margin_right = 1218.0
-margin_bottom = 108.0
+margin_left = 473.0
+margin_top = 12.0
+margin_right = 855.0
+margin_bottom = 115.0
 rect_clip_content = true
 theme = SubResource( 10 )
 text = "3.00 s"
