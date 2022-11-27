@@ -85,10 +85,10 @@ func _physics_process(delta):
 			self.global_transform = restartTransform
 			self.velocity = restartVelocity
 		if collider_layer == 16:
+			emit_signal("flash")
 			get_node("/root/Spatial/World/Mistletoe").queue_free()
 			get_node("/root/Spatial/World/OuterTree/FakeTop").visible = true
 			Engine.time_scale = 0.2
-			emit_signal("flash")
 			timedown.connect("timeout", self, "time_finished")
 			add_child(timedown)
 			timedown.start()

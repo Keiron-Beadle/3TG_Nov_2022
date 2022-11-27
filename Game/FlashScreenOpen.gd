@@ -10,6 +10,7 @@ var flash_screens = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	set_process(false)
 	flash_screens.append($Thing1)
 	flash_screens.append($Thing2)
 	flash_screens.append($Thing3)
