@@ -13,13 +13,14 @@ export var groundFriction = 0.9
 export var mouseSensitivity = 0.1
 
 var velocity = Vector3.ZERO
-
+var timedown = Timer.new()
 var restartTransform
 var restartVelocity
 
 func _ready():
 	restartTransform = self.global_transform
 	restartVelocity = self.velocity
+
 	pass # Replace with function body.
 
 func _physics_process(delta):
@@ -73,6 +74,7 @@ func _physics_process(delta):
 	var point_light = get_node("/root/Spatial/Lights/PlayerLight")
 	point_light.transform.origin = transform.origin
 	
+	#Collision detection
 	var slide_count = get_slide_count()
 	for i in range(slide_count):
 		var collision = get_slide_collision(i)
@@ -80,8 +82,20 @@ func _physics_process(delta):
 		if collider_layer == 2:
 			self.global_transform = restartTransform
 			self.velocity = restartVelocity
-		
+		if collider_layer == 16:
+			get_node("/root/Spatial/World/Mistletoe").queue_free()
+			get_node("/root/Spatial/World/OuterTree/FakeTop").visible = true
+			Engine.time_scale = 0.2
+			timedown.connect("timeout", self, "time_finished")
+			add_child(timedown)
+			timedown.start()
+			
+	pass
 	
+func time_finished():
+	Engine.time_scale = 1
+	timedown = get_tree().create_timer(4)
+	timedown.connect("timeout", self, "time_finished")
 	pass
 
 func _input(event):
