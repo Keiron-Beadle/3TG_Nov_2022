@@ -82,9 +82,8 @@ func _physics_process(delta):
 	for i in range(slide_count):
 		var collision = get_slide_collision(i)
 		var collider_layer = collision.collider.get_collision_layer()
-		if collider_layer == 4:
-			self.global_transform = restartTransform
-			self.velocity = restartVelocity
+		if collider_layer == 4 or collider_layer == 8:
+			get_tree().reload_current_scene()
 		if collider_layer == 16:
 			collision.collider.set_collision_layer(2)
 			emit_signal("addTime")
