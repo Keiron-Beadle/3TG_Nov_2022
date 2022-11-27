@@ -2,12 +2,15 @@ extends Label
 
 signal KILL
 
-var time = 3
+var time = 4
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_node("/root/Spatial/Player").connect("addTime", self, "on_add_time")
 	pass # Replace with function body.
 
+func on_add_time():
+	time += 1.2
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

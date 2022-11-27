@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Player_Controller.gd" type="Script" id=1]
 [ext_resource path="res://GlobalListener.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://AngelChase.gd" type="Script" id=17]
 [ext_resource path="res://TimeLeft.gd" type="Script" id=18]
 [ext_resource path="res://Resources/Fonts/SimplySquare.ttf" type="DynamicFontData" id=19]
+[ext_resource path="res://VelocityUpdate.gd" type="Script" id=20]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -160,48 +161,56 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0368919, 0, 0.145966 )
 [node name="CSGBox" type="CSGBox" parent="World/Course"]
 transform = Transform( 0.690323, 0.521382, -0.501612, -0.577597, 0.814671, 0.0518842, 0.435701, 0.253913, 0.863535, 2.63309, 43.4957, 4.28881 )
 use_collision = true
+collision_layer = 32
 height = 12.0591
 depth = 14.1229
 
 [node name="CSGBox2" type="CSGBox" parent="World/Course"]
 transform = Transform( -0.352084, -0.448477, -1.97577, -0.519381, 1.41891, -0.115769, 0.77864, 0.743669, -0.97062, -6.73352, 34.0203, -4.02444 )
 use_collision = true
+collision_layer = 32
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox3" type="CSGBox" parent="World/Course"]
 transform = Transform( -0.875136, -0.605566, -0.702729, -0.410702, 1.50912, 0.201915, 0.255851, 0.351162, -2.07956, -24.5134, 21.3815, 8.78554 )
 use_collision = true
+collision_layer = 32
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox5" type="CSGBox" parent="World/Course"]
 transform = Transform( 0.848847, 0.693192, 0.717105, -0.45683, 1.47703, 0.120715, -0.266016, -0.324559, 2.08095, 23.9665, 4.74171, -7.65648 )
 use_collision = true
+collision_layer = 32
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox6" type="CSGBox" parent="World/Course"]
 transform = Transform( 0.0446284, 1.57133, 0.717105, -0.998098, 0.0470754, 0.120715, 0.04252, -0.544218, 2.08095, 5.82156, -5.19069, -26.1201 )
 use_collision = true
+collision_layer = 32
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox7" type="CSGBox" parent="World/Course"]
 transform = Transform( -0.648632, 1.26117, 0.14859, -0.179941, -0.110949, -2.16338, -0.739525, -1.07917, 0.396067, -10.4319, -6.85378, -23.9817 )
 use_collision = true
+collision_layer = 32
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox8" type="CSGBox" parent="World/Course"]
 transform = Transform( -0.829694, 0.734327, -0.753228, -0.46894, -1.46931, -0.00511427, -0.302823, 0.263364, 2.07166, -24.0878, -6.90103, -8.58568 )
 use_collision = true
+collision_layer = 32
 height = 6.19326
 depth = 9.04224
 
 [node name="CSGBox10" type="CSGBox" parent="World/Course"]
 transform = Transform( -2.37353e-08, -1.301, 0, 0.543, -5.68685e-08, 0, 0, 0, 1.115, -0.611373, -36.0243, -0.666555 )
 use_collision = true
+collision_layer = 32
 height = 6.19326
 depth = 9.04224
 
@@ -221,6 +230,7 @@ height = 4.37
 [node name="CSGBox4" type="CSGBox" parent="World/Course"]
 transform = Transform( 0.125159, 1.56297, -0.702729, 0.990672, -0.167841, 0.201915, 0.0538955, -0.544458, -2.07956, -8.70848, 10.7452, 9.45266 )
 use_collision = true
+collision_layer = 32
 height = 6.19326
 depth = 9.04224
 
@@ -354,19 +364,21 @@ script = ExtResource( 15 )
 [node name="CollisionShape" type="CollisionShape" parent="Bottom Circle"]
 shape = SubResource( 7 )
 
-[node name="Text" type="Control" parent="."]
+[node name="TEXT" type="Control" parent="."]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="Velocity" type="Label" parent="Text"]
+[node name="Velocity" type="Label" parent="TEXT"]
 margin_left = 937.0
 margin_top = 126.0
 margin_right = 1115.0
 margin_bottom = 173.0
 theme = SubResource( 12 )
 text = "0.0 m/s"
+script = ExtResource( 20 )
 
-[node name="TimeLeft" type="Label" parent="Text"]
+[node name="TimeLeft" type="Label" parent="TEXT"]
 margin_left = 836.0
 margin_top = 15.0
 margin_right = 1218.0
